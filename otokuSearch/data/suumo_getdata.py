@@ -36,6 +36,7 @@ for i in range(pages_split3-1):
 
 names = []
 addresses = []
+buildings = []
 locations0 = []
 locations1 = []
 locations2 = []
@@ -63,10 +64,12 @@ for url in urls:
 
         name = apartment.find('div', class_='cassetteitem_content-title').text
         address = apartment.find('li', class_='cassetteitem_detail-col1').text
+        building = apartment.find('span', class_='ui-pct ui-pct--util1').text
         #各賃貸で部屋数の数だけ物件名と住所をリストに追加
         for i in range(room_number):
             names.append(name)
             addresses.append(address)
+            buildings.append(building)
 
         sublocation = apartment.find('li', class_='cassetteitem_detail-col2')
         cols = sublocation.find_all('div')
@@ -134,6 +137,7 @@ for url in urls:
 
 names = Series(names)
 addresses = Series(addresses)
+buildings = Series(buildings)
 locations0 = Series(locations0)
 locations1 = Series(locations1)
 locations2 = Series(locations2)
@@ -147,8 +151,8 @@ floor_plans = Series(floor_plans)
 areas = Series(areas)
 detail_urls = Series(detail_urls)
 
-suumo_df = pd.concat([names, addresses, locations0, locations1, locations2, ages, heights, floors, rent, admin, others, floor_plans, areas, detail_urls], axis=1)
+suumo_df = pd.concat([names, addresses, buildings, locations0, locations1, locations2, ages, heights, floors, rent, admin, others, floor_plans, areas, detail_urls], axis=1)
 
-suumo_df.columns=['マンション名','住所','立地1','立地2','立地3','築年数','建物の高さ','階層','賃料料','管理費', '敷/礼/保証/敷引,償却','間取り','専有面積', '詳細URL']
+suumo_df.columns=['マンション名','住所', '建物種別', '立地1','立地2','立地3','築年数','建物の高さ','階層','賃料料','管理費', '敷/礼/保証/敷引,償却','間取り','専有面積', '詳細URL']
 
 suumo_df.to_csv('suumo.csv', sep = '\t', encoding='utf-16', header=True, index=False)
