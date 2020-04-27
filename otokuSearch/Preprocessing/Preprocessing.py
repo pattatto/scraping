@@ -41,13 +41,13 @@ df['礼金'] = df['礼金'].replace('-',0)
 
 splitted5 = df['立地11'].str.split('/', expand=True)
 splitted5.columns = ['路線1', '駅1']
-splitted5['徒歩1'] = df['立地12']
+splitted5['駅徒歩1'] = df['立地12']
 splitted6 = df['立地21'].str.split('/', expand=True)
 splitted6.columns = ['路線2', '駅2']
-splitted6['徒歩2'] = df['立地22']
+splitted6['駅徒歩2'] = df['立地22']
 splitted7 = df['立地31'].str.split('/', expand=True)
 splitted7.columns = ['路線3', '駅3']
-splitted7['徒歩3'] = df['立地32']
+splitted7['駅徒歩3'] = df['立地32']
 
 df = pd.concat([df, splitted5, splitted6, splitted7], axis=1)
 
@@ -189,10 +189,10 @@ df_for_search = df.copy()
 df = df[df['賃料料+管理費'] < 300000]
 
 df = df[["マンション名",'建物種別', '賃料料+管理費', '築年数', '建物の高さ', '階1',
-       '専有面積','路線1','路線2','路線3', '駅1', '駅2','駅3','徒歩1', '徒歩2','徒歩3','間取り', '間取りDK', '間取りK', '間取りL', '間取りS',
-       '市町村']]
+       '専有面積','路線1','路線2','路線3', '駅1', '駅2','駅3','駅徒歩1', '駅徒歩2','駅徒歩3','間取り', '間取りDK', '間取りK', '間取りL', '間取りS',
+       '市町村', 'バス停1', 'バス停2', 'バス停3', 'バス時間1','バス時間2','バス時間3']]
 
-df.columns = ['name', 'building', 'real_rent','age', 'hight', 'level','area', 'route_1','route_2','route_3','station_1','station_2','station_3','distance_1','distance_2','distance_3','room_number','DK','K','L','S','adress']
+df.columns = ['name', 'building', 'real_rent','age', 'hight', 'level','area', 'route_1','route_2','route_3','station_1','station_2','station_3','station_wolk_1','station_wolk_2','station_wolk_3','room_number','DK','K','L','S','adress', 'bus_stop1', 'bus_stop2', 'bus_stop3', 'bus_time1', 'bus_time2', 'bus_time3']
 
 
 #pdp.ProfileReport(df)
