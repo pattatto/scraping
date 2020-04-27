@@ -4,7 +4,6 @@ import numpy as np
 df = pd.read_csv('otokuSearch/Preprocessing/Preprocessing.csv', sep='\t', encoding='utf-16')
 
 df["per_area"] = df["area"]/df["room_number"]
-df["per_real_rent"] = df["real_rent"]/df["area"]
 df["hight_level"] = df["hight"]*df["level"]
 df["area_hight_level"] = df["area"]*df["hight_level"]
 df["distance_staion_1"] = df["station_1"]*df["station_wolk_1"]+df["bus_stop1"]*df["bus_time1"]
