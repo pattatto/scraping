@@ -6,7 +6,7 @@ import time
 import pandas as pd
 from pandas import Series, DataFrame
 
-url = 'https://suumo.jp/jj/chintai/ichiran/FR301FC001/?ar=030&bs=040&ta=11&sc=11107&sc=11203&sc=11223&cb=0.0&ct=9999999&mb=0&mt=9999999&et=9999999&cn=9999999&shkr1=03&shkr2=03&shkr3=03&shkr4=03&sngz=&po1=09'
+url = input()
 
 result = requests.get(url)
 c = result.content
