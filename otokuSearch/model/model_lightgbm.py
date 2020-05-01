@@ -36,10 +36,10 @@ def True_Pred_map(pred_df):
     plt.text(0.1, 0.8, 'R^2 = {}'.format(str(round(R2, 5))), transform=ax.transAxes, fontsize=15)
 
 
-    df = pd.read_csv('otokuSearch/Featurevalue/Fettur_evalue.csv', sep='\t', encoding='utf-16')
+df = pd.read_csv('otokuSearch/Featurevalue/Fettur_evalue.csv', sep='\t', encoding='utf-16')
 
-#kf : データ分割の挙動を指定する箱。今回は4分割・データシャッフルあり。
-kf = KFold(n_splits=4, shuffle=True, random_state=1)
+#kf : データ分割の挙動を指定する箱。今回は10分割・データシャッフルあり。
+kf = KFold(n_splits=10, shuffle=True, random_state=1)
 
 #predicted_df : これから各予測値を結合していく時に、空のデータフレームを容易しておく
 predicted_df = pd.DataFrame({'index':0, 'pred':0}, index=[1])
@@ -51,7 +51,7 @@ lgbm_params = {
         'num_leaves':80
 }
 
-#交差検証4分割で行うので、4回ループが繰り返される。
+#交差検証4分割で行うので、10回ループが繰り返される。
 #kfにindexを与え、訓練データindexと評価データindexを決定してもらう。
 #df,indexの中から1回目につかう訓練用のデータのインデックス番号と評価用データのインデックス番号をtrain_index, val_indexに出力する
 for train_index, val_index in kf.split(df.index):
