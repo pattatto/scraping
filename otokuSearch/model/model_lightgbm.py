@@ -15,7 +15,8 @@ from sklearn.model_selection import KFold
 #関数の処理で必要なライブラリ
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
-
+#モデルの保存に必要なライブラリ
+import pickle
 
 #予測値と正解値を描写する関数
 def True_Pred_map(pred_df):
@@ -91,15 +92,6 @@ print(r2_score(y_test, predicted)  )
 lgb.plot_importance(gbm, figsize=(12, 6))
 plt.show()
 
-#お得物件データの作成
-y = df["real_rent"]
-X = df.drop(['real_rent',"name"], axis=1)
-pred = list(gbm.predict(X, num_iteration=gbm.best_iteration))
-pred = pd.Series(predicted, name="予測値")
-diff = pd.Series(df["real_rent"]-pred,name="予測値との差")
-df_for_search = pd.read_csv('otokuSearch/Preprocessing/df_for_search.csv', sep='\t', encoding='utf-16')
-df_for_search['賃料料+管理費'] = df_for_search['賃料料'] + df_for_search['管理費']
-df_search = pd.concat([df_for_search,diff,pred], axis=1)
-df_search = df_search.sort_values("予測値との差")
-df_search = df_search[["マンション名",'賃料料+管理費', '予測値',  '予測値との差', '詳細URL']]
-df_search.to_csv('otoku.csv', sep = '\t',encoding='utf-16')
+#モデルの保存
+with open('otokuSearch/model/model.pickle', mode='wb') as fp:
+    pickle.dump(gbm, fp)
